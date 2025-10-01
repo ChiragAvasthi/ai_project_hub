@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pneumonia Detection</title>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/cloak.css') }}">
+    <style>
+        /* Styles for the new drag-and-drop zone */
+        .drop-zone {
+            margin-top: 2rem;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 3px dashed #444;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .drop-zone:hover {
+            border-color: #00bcd4;
+            background-color: #1e1e1e;
+        }
+        /* Style for when a file is being dragged over the zone */
+        .drop-zone.drag-over {
+            border-color: #22c55e;
+            background-color: #2a3d34;
+            transform: scale(1.02);
+        }
+        .drop-zone__input {
+            /* Hide the default file input */
+            display: none;
+        }
+        .drop-zone__text {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+        }
+        .result-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+        .result-image {
+            max-width: 400px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('main.home') }}" class="back-link">← Back to Home</a>
+        <h1>🩺 Pneumonia Detection</h1>
+        <p>Upload a chest X-ray to classify it as Normal or Pneumonia.</p>
+        
+        <form id="upload-form" method="post" enctype="multipart/form-data">
+            <div class="drop-zone" id="drop-zone">
+                <span class="drop-zone__text">Drag & Drop Image Here or Click to Upload</span>
+                <input type="file" name="file" id="file-input" class="drop-zone__input" accept="image/jpeg, image/png, image/jpg">
+            </div>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-error" style="color: #ef4444; margin-top: 1rem;">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% if prediction and confidence %}
+        <div class="result-container">
+            <h2>Result: <span style="color: #00bcd4;">{{ prediction }}</span></h2>
+            <h3>Confidence Score: {{ confidence }}%</h3>
+            <img src="data:image/jpeg;base64,{{ image_data }}" class="result-image" alt="Uploaded X-Ray">
+        </div>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('main.static', filename='js/detector.js') }}"></script>
+</body>
+</html>

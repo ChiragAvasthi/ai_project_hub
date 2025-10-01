@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Anonymizer</title>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/cloak.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('main.home') }}" class="back-link">← Back to Home</a>
+        <h1>🥸 Face Anonymizer</h1>
+        <p id="instructions">Press "Start Camera" to begin blurring faces.</p>
+        
+        <div class="video-container">
+            <img src="{{ url_for('anonymizer.video_feed') }}" width="1280" height="720" alt="Live video feed">
+        </div>
+
+        <div class="button-group">
+            <button id="startButton" class="control-btn start">Start Camera</button>
+            <button id="stopButton" class="control-btn stop" disabled>Stop Camera</button>
+        </div>
+    </div>
+    <script src="{{ url_for('main.static', filename='js/anonymizer.js') }}"></script>
+</body>
+</html>

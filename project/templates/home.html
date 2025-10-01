@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project Hub</title>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/main.css') }}">
+</head>
+<body>
+
+    <div id="matrix-background"></div>
+
+    <header>
+        <div class="header-container">
+            <h1>🤖 AI Project Hub</h1>
+            <p class="tagline">A collection of interactive computer vision projects.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Select a Project</h1>
+            <div class="card-container">
+                <a href="{{ url_for('cloak.index') }}" class="card">
+                    <h2>🧙‍♂️ Invisible Cloak</h2>
+                    <p>Use computer vision to create a real-time invisibility effect.</p>
+                </a>
+                <a href="{{ url_for('anonymizer.index') }}" class="card">
+                    <h2>🥸 Face Anonymizer</h2>
+                    <p>Blur or anonymize faces in a live video feed.</p>
+                </a>
+                <a href="{{ url_for('detector.index') }}" class="card">
+                    <h2>🩺 Pneumonia Detection</h2>
+                    <p>Upload a chest X-ray to detect signs of pneumonia.</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI Project Hub. All Rights Reserved.</p>
+        <p>Created by Chirag Avasthi | Contact: <a href="mailto:chiragavasthi24@gmail.com">chiragavasthi24@gmail.com</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const background = document.getElementById('matrix-background');
+            const chars = '0123456789ABCDEF';
+            const screenWidth = window.innerWidth;
+            const digitWidth = 20;
+            const numColumns = Math.floor(screenWidth / digitWidth);
+
+            for (let i = 0; i < numColumns; i++) {
+                const column = document.createElement('div');
+                column.classList.add('matrix-column');
+                for (let j = 0; j < 30; j++) { 
+                    const digit = document.createElement('div');
+                    digit.classList.add('digit');
+                    digit.textContent = chars[Math.floor(Math.random() * chars.length)];
+                    
+                    // --- THIS LINE IS CHANGED ---
+                    // Greatly reduced the random delay to make the animation start immediately.
+                    digit.style.animationDelay = `${Math.random() * 1}s`;
+
+                    // Kept the slow fall speed (7 to 12 seconds).
+                    digit.style.animationDuration = `${7 + Math.random() * 5}s`;
+
+                    column.appendChild(digit);
+                }
+                background.appendChild(column);
+            }
+        });
+    </script>
+</body>
+</html>

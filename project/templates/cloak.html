@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invisible Cloak</title>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/cloak.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('main.home') }}" class="back-link">← Back to Home</a>
+        <h1>Invisible Cloak</h1>
+        <p id="instructions">Press "Start Camera" to begin.</p>
+        
+        <div class="video-container">
+            <img src="{{ url_for('cloak.video_feed') }}" width="1280" height="720" alt="Live video feed">
+        </div>
+
+        <div class="button-group">
+            <button id="startButton" class="control-btn start">Start Camera</button>
+            <button id="stopButton" class="control-btn stop" disabled>Stop Camera</button>
+            <button id="recaptureButton" class="control-btn recapture" disabled>Recapture</button>
+        </div>
+
+        <div class="controls color-controls">
+            <p>Select a color to make invisible:</p>
+            <div id="color-palette">
+                <button class="color-swatch" data-color="red" style="--swatch-color: #ef4444;"></button>
+                <button class="color-swatch" data-color="green" style="--swatch-color: #22c55e;"></button>
+                <button class="color-swatch active" data-color="blue" style="--swatch-color: #3b82f6;"></button>
+                <button class="color-swatch" data-color="yellow" style="--swatch-color: #eab308;"></button>
+                <button class="color-swatch" data-color="pink" style="--swatch-color: #ec4899;"></button>
+                <button class="color-swatch" data-color="white" style="--swatch-color: #ffffff;"></button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('main.static', filename='js/cloak.js') }}"></script>
+</body>
+</html>
